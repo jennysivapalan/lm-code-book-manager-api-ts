@@ -133,3 +133,10 @@ describe("POST /api/v1/books endpoint", () => {
 		expect(res.statusCode).toEqual(400);
 	});
 });
+
+describe("DELETE /api/v1/books endpoint", () => {
+	test("status code successfully 200 for deleting a valid book", async () => {
+		const delReq = await request(app).delete("/api/v1/books/2");
+		expect(delReq.statusCode).toEqual(200);
+	});
+});
