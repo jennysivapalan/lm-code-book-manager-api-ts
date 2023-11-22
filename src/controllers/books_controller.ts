@@ -13,7 +13,9 @@ export const getBook = async (req: Request, res: Response) => {
 	if (book) {
 		res.json(book).status(200);
 	} else {
-		res.status(404).json("Not found");
+		res
+			.status(404)
+			.json({ message: `Book with ID ${bookId} not found in the database` });
 	}
 };
 
