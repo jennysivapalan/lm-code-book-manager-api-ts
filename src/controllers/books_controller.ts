@@ -37,16 +37,21 @@ export const updateBook = async (req: Request, res: Response) => {
 
 	if (book && book[0] === 1) res.status(204).json(book);
 	else
-		res
-			.status(400)
-			.json({
-				message: `Book with ID ${bookId} does not exist so cannot be updated`,
-			});
+		res.status(400).json({
+			message: `Book with ID ${bookId} does not exist so cannot be updated`,
+		});
 };
 
 export const deleteBook = async (req: Request, res: Response) => {
 	const bookId = Number.parseInt(req.params.bookId);
 
-	await bookService.deleteBook(bookId);
-	res.status(200).json({ message: `Book with ID ${bookId} has been deleted` });
+	const x = await bookService.deleteBook(bookId);
+	if (x === 1)
+		res
+			.status(200)
+			.json({ message: `Book with ID ${bookId} has been deleted` });
+	else
+		res
+			.status(404)
+			.json({ message: `Book with ID ${bookId} has not be found` });
 };

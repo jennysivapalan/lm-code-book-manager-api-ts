@@ -163,9 +163,18 @@ describe("POST /api/v1/books endpoint", () => {
 });
 
 describe("DELETE /api/v1/books endpoint", () => {
-	test("status code successfully 200 for deleting a valid book", async () => {
-		const delReq = await request(app).delete("/api/v1/books/2");
-		expect(delReq.statusCode).toEqual(200);
+	test.only("status code successfully 200 for deleting a valid book", async () => {
+		jest.spyOn(bookService, "deleteBook").mockResolvedValue(1);
+		const res = await request(app).delete("/api/v1/books/2");
+		expect(res.statusCode).toEqual(200);
+		expect(res.text).toEqual('{"message":"Book with ID 2 has been deleted"}');
+	});
+
+	test.only("status code returns 404 for deleting a book that doesn't exist", async () => {
+		jest.spyOn(bookService, "deleteBook").mockResolvedValue(0);
+		const res = await request(app).delete("/api/v1/books/5");
+		expect(res.statusCode).toEqual(404);
+		expect(res.text).toEqual('{"message":"Book with ID 5 has not be found"}');
 	});
 });
 
