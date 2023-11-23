@@ -163,14 +163,14 @@ describe("POST /api/v1/books endpoint", () => {
 });
 
 describe("DELETE /api/v1/books endpoint", () => {
-	test.only("status code successfully 200 for deleting a valid book", async () => {
+	test("status code successfully 200 for deleting a valid book", async () => {
 		jest.spyOn(bookService, "deleteBook").mockResolvedValue(1);
 		const res = await request(app).delete("/api/v1/books/2");
 		expect(res.statusCode).toEqual(200);
 		expect(res.text).toEqual('{"message":"Book with ID 2 has been deleted"}');
 	});
 
-	test.only("status code returns 404 for deleting a book that doesn't exist", async () => {
+	test("status code returns 404 for deleting a book that doesn't exist", async () => {
 		jest.spyOn(bookService, "deleteBook").mockResolvedValue(0);
 		const res = await request(app).delete("/api/v1/books/5");
 		expect(res.statusCode).toEqual(404);
@@ -197,5 +197,12 @@ describe("PUT /api/v1/books endpoint", () => {
 		expect(delReq.text).toEqual(
 			'{"message":"Book with ID 4 does not exist so cannot be updated"}'
 		);
+	});
+});
+
+describe("invalid urls", () => {
+	test("status code successfully 404 for invalid urls", async () => {
+		const req = await request(app).get("/api/v1/authors/2");
+		expect(req.statusCode).toEqual(404);
 	});
 });
