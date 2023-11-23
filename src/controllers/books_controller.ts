@@ -33,9 +33,15 @@ export const saveBook = async (req: Request, res: Response) => {
 export const updateBook = async (req: Request, res: Response) => {
 	const bookUpdateData = req.body;
 	const bookId = Number.parseInt(req.params.bookId);
-
 	const book = await bookService.updateBook(bookId, bookUpdateData);
-	res.status(204).json(book);
+
+	if (book && book[0] === 1) res.status(204).json(book);
+	else
+		res
+			.status(400)
+			.json({
+				message: `Book with ID ${bookId} does not exist so cannot be updated`,
+			});
 };
 
 export const deleteBook = async (req: Request, res: Response) => {

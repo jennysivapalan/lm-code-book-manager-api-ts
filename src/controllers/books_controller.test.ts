@@ -171,9 +171,22 @@ describe("DELETE /api/v1/books endpoint", () => {
 
 describe("PUT /api/v1/books endpoint", () => {
 	test("status code successfully 200 for updating a valid book", async () => {
+		jest.spyOn(bookService, "updateBook").mockResolvedValue([1]);
 		const delReq = await request(app)
 			.put("/api/v1/books/2")
 			.send({ title: "A different book", author: "A Different author" });
 		expect(delReq.statusCode).toEqual(204);
+	});
+
+	test("status code return error for updating a book that does not exist in the store", async () => {
+		jest.spyOn(bookService, "updateBook").mockResolvedValue([0]);
+
+		const delReq = await request(app)
+			.put("/api/v1/books/4")
+			.send({ title: "A book", author: "An author" });
+		expect(delReq.statusCode).toEqual(400);
+		expect(delReq.text).toEqual(
+			'{"message":"Book with ID 4 does not exist so cannot be updated"}'
+		);
 	});
 });
