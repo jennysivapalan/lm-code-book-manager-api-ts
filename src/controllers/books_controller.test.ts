@@ -135,6 +135,7 @@ describe("POST /api/v1/books endpoint", () => {
 
 		// Assert
 		expect(res.statusCode).toEqual(400);
+		expect(res.text).toEqual('{"message":"Error saving book"}');
 	});
 });
 
