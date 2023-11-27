@@ -45,8 +45,8 @@ export const updateBook = async (req: Request, res: Response) => {
 export const deleteBook = async (req: Request, res: Response) => {
 	const bookId = Number.parseInt(req.params.bookId);
 
-	const x = await bookService.deleteBook(bookId);
-	if (x === 1)
+	const result = await bookService.deleteBook(bookId);
+	if (result === 1)
 		res
 			.status(200)
 			.json({ message: `Book with ID ${bookId} has been deleted` });
