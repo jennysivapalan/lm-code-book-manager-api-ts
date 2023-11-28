@@ -17,6 +17,8 @@ This is the starter repository for the Further APIs session. It provides a start
 - [Jest](https://jestjs.io/)
 - [Supertest](https://www.npmjs.com/package/supertest)
 - [ESLint](https://eslint.org/)
+- [pg](https://www.npmjs.com/package/pg)
+- [dotenv](https://www.npmjs.com/package/dotenv)
 
 ### How to Get Started
 
@@ -49,6 +51,10 @@ Followed by:
 ```
 npm test
 ```
+
+### Setting up wit Postgres
+
+Follow the guidelines in the docs folder <docs/API Lab 2 - TS - Postgres (3).pdf>
 
 ### Tasks worked on
 
