@@ -10,6 +10,3 @@ export const CONFIG = {
 	dbDialect: process.env.DB_DIALECT ?? "sqlite",
 	dbPort: process.env.DB_PORT ?? "",
 } as const;
-
-console.log(CONFIG);
-console.log(process.env.NODE_ENV);
