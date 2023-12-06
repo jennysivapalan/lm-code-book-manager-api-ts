@@ -45,13 +45,17 @@ export const updateBook = async (req: Request, res: Response) => {
 export const deleteBook = async (req: Request, res: Response) => {
 	const bookId = Number.parseInt(req.params.bookId);
 
-	const result = await bookService.deleteBook(bookId);
-	if (result === 1)
-		res
-			.status(200)
-			.json({ message: `Book with ID ${bookId} has been deleted` });
-	else
-		res
-			.status(404)
-			.json({ message: `Book with ID ${bookId} has not be found` });
+	try {
+		const result = await bookService.deleteBook(bookId);
+		if (result === 1)
+			res
+				.status(200)
+				.json({ message: `Book with ID ${bookId} has been deleted` });
+		else
+			res
+				.status(404)
+				.json({ message: `Book with ID ${bookId} has not be found` });
+	} catch (error) {
+		res.status(400).json({ message: (error as Error).message });
+	}
 };

@@ -176,6 +176,16 @@ describe("DELETE /api/v1/books endpoint", () => {
 		expect(res.statusCode).toEqual(404);
 		expect(res.text).toEqual('{"message":"Book with ID 5 has not be found"}');
 	});
+
+	test("status code returns 400 for deleting a book ID that is invalid", async () => {
+		jest.spyOn(bookService, "deleteBook").mockImplementation(() => {
+			throw new Error("Book ID is invalid");
+		});
+
+		const res = await request(app).delete("/api/v1/books/abcd");
+		expect(res.statusCode).toEqual(400);
+		expect(res.text).toEqual('{"message":"Book ID is invalid"}');
+	});
 });
 
 describe("PUT /api/v1/books endpoint", () => {
